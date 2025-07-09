@@ -1,0 +1,14 @@
+name: GitHub CI
+
+on:
+  pull_request:
+    branches: [main, develop, 'release/**']
+  push:
+    branches: [main, develop, 'release/**']
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: echo "Run code checks, linting, etc."
