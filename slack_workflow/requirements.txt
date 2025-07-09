@@ -1,0 +1,6 @@
+Flask==3.0.3
+requests==2.32.3
+ruamel.yaml==0.17.32
+PyYAML
+PyGithub==1.59.0 
+requests
