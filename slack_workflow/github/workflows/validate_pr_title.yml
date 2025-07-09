@@ -1,0 +1,28 @@
+name: Validate PR Title
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize]
+
+permissions:
+  contents: read
+
+jobs:
+  check-title:
+    name: Check PR Title Format
+    runs-on: ubuntu-latest
+    if: "!contains(github.head_ref, 'add-pr-title-check')" # 👈 skip branch named add-pr-title-check
+    steps:
+      - name: Validate PR title format
+        shell: bash
+        run: |
+          echo "🔍 Validating PR title: $TITLE"
+          if [[ ! $TITLE =~ ^[A-Z]+-[0-9]+\ \-\ .+ ]]; then
+            echo "❌ PR title must match format: ABC-123 - Your title"
+            echo "✅ Example: SRE-21 - Enforce Jira ID checks"
+            exit 1
+          else
+            echo "✅ PR title format is valid: $TITLE"
+          fi
+        env:
+          TITLE: ${{ github.event.pull_request.title }}
